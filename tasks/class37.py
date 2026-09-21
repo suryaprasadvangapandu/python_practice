@@ -50,6 +50,21 @@
 # else:
 #     print("Not a magic number")
 
+
+
+# or
+
+# num = 38
+
+# while num >=10:
+#       add =0
+#       while num>0:
+#          r = num%10
+#          add = add +r
+#          num = num//10
+#       num = add
+# print(num)
+
 '''4. WAP to store the factors of each number within a range by dictionary format
    Ex:     (W/O using built-in functions)
    begin = 5
@@ -134,3 +149,5 @@
 #         l1 = l1+[num2]
         
 # print(l1)
+
+
