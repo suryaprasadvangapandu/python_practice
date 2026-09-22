@@ -14,6 +14,29 @@ WAP to check whether two strings are Anagram or not
 # else:
 #     print("not an Anagram")
 
+'''or'''
+# word1 = input("Enter the word1 : ")
+# word2 = input("Enter the word2 : ")
+
+# word1 = word1.lower()
+# word2 = word2.lower()
+
+# if len(word1) != len(word2):
+#     print("Not an Anagram")
+# else:
+#     count = 0
+
+#     for i in word1:
+#         for j in word2:
+#             if i == j:
+#                 count = count + 1
+#                 break
+
+#     if count == len(word1):
+#         print("Both strings are Anagram")
+#     else:
+#         print("Not an Anagram")
+
 '''
 --task-2--
 WAP to check whether a string a palindrome or not (W/O using any built-in function or slicing)'''
