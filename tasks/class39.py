@@ -46,3 +46,5 @@ if num=4
 # num = 4
 # l1 = [[j+(num*i) for j in range(1,num+1)] for i in range(0,num)]
 # print(l1)
+
+
