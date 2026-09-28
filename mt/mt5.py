@@ -8,7 +8,7 @@ Output : [‘Django’, ‘Flask’, ‘Developer’] '''
 # sep = "-"
 # add = ""
 
-# for i in num:
+# for i in num:   
 #   if (i!=sep):
 #        add = add + i
 #   else:
@@ -103,7 +103,7 @@ Nums1 = [767, 78687, 8998, 25452, 111] #True '''
 #     num = begin
 
 #     while num > 9:
-#         add = 0
+#         add = 0 
 
 #         while num > 0:
 #             rem = num % 10
@@ -155,3 +155,4 @@ OUTPUT : [['a', 'b'], ['c'], ['e']] '''
 #     l1 += [l2]
 
 # print(l1)
+
