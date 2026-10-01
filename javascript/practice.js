@@ -153,7 +153,7 @@
 
 // 9.WAP to findout the pairs from array whose sum is equal to target value
 
-let num = [1,2,3,0,4]
-for(let i=0;i<=num.length+1;i++){
-    for(let j =1;j<)
-}
+// let num = [1,2,3,0,4]
+// for(let i=0;i<=num.length+1;i++){
+//     for(let j =1;j<)
+// }
