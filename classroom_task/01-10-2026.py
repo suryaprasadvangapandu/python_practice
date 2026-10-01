@@ -207,16 +207,11 @@
 # print(isAbundant(18))
 
 '''15.Create a Function to check whether a number is Automorphic Number or not.'''
+def isAutomorphic(num):
 
-n= 143
-temp = n
-sum = 0
-while(n>0):
-    rem = n%10 
-    sum = sum+rem**len(str(temp))
-    n = n//10
-if(temp == sum):
-    print("Armstrong")
-else:
-    print("Not Armstrong")
-     
+    if((num**2)%10**len(str(num))== num):
+        return "Automorphic Number"
+    else:
+        return "Not Automorphic Number"
+
+print(isAutomorphic(6))
