@@ -12,12 +12,15 @@
 
 '''3.Create a Function to check whether a number is even number or odd number.'''
 # def is_Even_or_Odd(num):
-#     if(num%2==0):
-#         return "Even Number"
-#     else:
+#     if(num%2==1):
 #         return "Odd Number"
+#     else:
+#         if(num==0):
+#             return "Neutral"
+#         else:
+#             return "Even Number"
 
-# print(is_Even_or_Odd(5))
+# print(is_Even_or_Odd(3))
 
 '''4.Create a Function to generate & store even numbers in list format based on start and stop input provided by user.'''
 
@@ -207,11 +210,84 @@
 # print(isAbundant(18))
 
 '''15.Create a Function to check whether a number is Automorphic Number or not.'''
-def isAutomorphic(num):
+# def isAutomorphic(num):
+#     def length(lth):
+#             count = 0
+#             while(lth>0):
+#                 lth = lth//10
+#                 count+=1
+#             return count
+#     if((num**2)%10**length(num)== num):
+#         return "Automorphic Number"
+#     else:
+#         return "Not Automorphic Number"
 
-    if((num**2)%10**len(str(num))== num):
-        return "Automorphic Number"
-    else:
-        return "Not Automorphic Number"
+# print(isAutomorphic(12))
 
-print(isAutomorphic(6))
+'''16.Create a Function to find the factorial of a number'''
+
+# def factorial(num):
+#     fact=1
+#     for i in range(1,num+1):
+#         fact = fact*i
+#     return fact
+# print(factorial(5))
+
+
+
+'''17.Create a Function to find the factorial of each number in between range provided by user and stores them in dictionary format where key is each number and value is its respective factorial value.'''
+
+# def factorialRange(start,stop):
+#     d1={}
+#     def factorial(num):
+#         fact=1
+#         for i in range(1,num+1):
+#             fact = fact*i
+#         return fact
+#     for i in range(start,stop):
+#         d1[i]=factorial(i)
+#     return d1
+# start = int(input("Enter the start number : "))
+# stop = int(input("Enter the stop number : "))
+# print(factorialRange(start,stop))
+
+'''18.Create a Function to find the factors of a number.'''
+
+# def factors(num):
+#     l1=[]
+#     for i in range(1,num+1):
+#         if(num%i==0):
+#             print(i)
+
+# factors(6)
+
+
+'''19.Create a Function to find the factors of each number in between range provided by user and stores them in dictionary format where key is each number and value is its respective factors in list format'''
+# def factRange(start,stop):
+#     def factors(num):
+#         d1={}
+#         l1=[]
+#         for i in range(1,num+1):
+#             if(num%i==0):
+#                 l1.append(i)
+#             d1[num] = l1
+#         return d1
+#     for i in range(start,stop):
+#         print(factors(i))
+
+# start = int(input("Enter the start number : "))
+# stop = int(input("Enter the stop number : "))
+# factRange(start,stop)
+
+'''20.Create a Function to check whether a number is Magic Number or not.'''
+
+# def MagicNumber(num):
+#     while(num>9):
+#         sum=0
+#         while(num>0):
+#             rem = num%10
+#             sum = sum+rem
+#             num=num//10
+#         num = sum
+#     return num == 1
+# print(MagicNumber(10))
