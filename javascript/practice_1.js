@@ -1,3 +1,5 @@
+
+// WAP to find out the sum of digits of a number.
 // let n = 123
 // sum =0
 // while(n>0){
@@ -10,7 +12,7 @@
 
 
 
-
+// WAP to find out the reverse of a number.
 // let n = 123
 // let rev =0
 // while(n>0){
