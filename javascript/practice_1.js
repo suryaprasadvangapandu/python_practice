@@ -25,7 +25,7 @@
 
 
 
-
+// WAP to check whether a number is an Armstrong or not.
 // let n = 153
 // let sum =0
 // let temp  = n
