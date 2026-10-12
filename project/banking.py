@@ -11,46 +11,72 @@ db = mysql.connector.connect(
 
 cursor = db.cursor()
 
+print("Connected Successfully")
+
 
 # 1. Create Account
 def create_account():
 
-    account_no = int(input("Enter account number: "))
     name = input("Enter your name: ")
     account_type = input("Enter account type (Savings/Current): ")
     balance = float(input("Enter initial balance: "))
+
     pin = int(input("Enter PIN: "))
+    confirm_pin = int(input("Confirm PIN: "))
+
+    if pin != confirm_pin:
+        print("PINs do not match")
+        return
+
     mobile = input("Enter mobile number: ")
 
     if account_type == "Savings" and balance >= 2000:
 
         query = """
         INSERT INTO accounts
-        (account_no, name, account_type, balance, pin, mobile)
-        VALUES (%s, %s, %s, %s, %s, %s)
+        (name, account_type, balance, pin, mobile)
+        VALUES (%s, %s, %s, %s, %s)
         """
 
-        values = (account_no, name, account_type, balance, pin, mobile)
+        values = (
+            name,
+            account_type,
+            balance,
+            pin,
+            mobile
+        )
 
         cursor.execute(query, values)
         db.commit()
 
+        account_no = cursor.lastrowid
+
         print("Account created successfully")
+        print("Your Account Number:", account_no)
 
     elif account_type == "Current" and balance >= 10000:
 
         query = """
         INSERT INTO accounts
-        (account_no, name, account_type, balance, pin, mobile)
-        VALUES (%s, %s, %s, %s, %s, %s)
+        (name, account_type, balance, pin, mobile)
+        VALUES (%s, %s, %s, %s, %s)
         """
 
-        values = (account_no, name, account_type, balance, pin, mobile)
+        values = (
+            name,
+            account_type,
+            balance,
+            pin,
+            mobile
+        )
 
         cursor.execute(query, values)
         db.commit()
 
+        account_no = cursor.lastrowid
+
         print("Account created successfully")
+        print("Your Account Number:", account_no)
 
     else:
         print("Invalid account type or insufficient minimum balance")
@@ -69,6 +95,7 @@ def deposit():
         account_no = int(input("Enter account number: "))
 
         query = "SELECT * FROM accounts WHERE account_no = %s"
+
         cursor.execute(query, (account_no,))
 
     elif choice == "2":
@@ -76,6 +103,7 @@ def deposit():
         mobile = input("Enter mobile number: ")
 
         query = "SELECT * FROM accounts WHERE mobile = %s"
+
         cursor.execute(query, (mobile,))
 
     else:
@@ -112,7 +140,10 @@ def deposit():
                 WHERE account_no = %s
                 """
 
-                cursor.execute(query, (new_balance, data[0]))
+                cursor.execute(
+                    query,
+                    (new_balance, data[0])
+                )
 
                 query = """
                 INSERT INTO transactions
@@ -122,7 +153,12 @@ def deposit():
 
                 cursor.execute(
                     query,
-                    (data[0], "Deposit", amount, operation)
+                    (
+                        data[0],
+                        "Deposit",
+                        amount,
+                        operation
+                    )
                 )
 
                 db.commit()
@@ -153,6 +189,7 @@ def withdraw():
         account_no = int(input("Enter account number: "))
 
         query = "SELECT * FROM accounts WHERE account_no = %s"
+
         cursor.execute(query, (account_no,))
 
     elif choice == "2":
@@ -160,6 +197,7 @@ def withdraw():
         mobile = input("Enter mobile number: ")
 
         query = "SELECT * FROM accounts WHERE mobile = %s"
+
         cursor.execute(query, (mobile,))
 
     else:
@@ -211,7 +249,12 @@ def withdraw():
 
                     cursor.execute(
                         query,
-                        (data[0], "Withdrawal", amount, operation)
+                        (
+                            data[0],
+                            "Withdrawal",
+                            amount,
+                            operation
+                        )
                     )
 
                     db.commit()
@@ -235,10 +278,16 @@ def withdraw():
 # 4. Money Transfer
 def transfer():
 
-    sender_account = int(input("Enter sender account number: "))
+    sender_account = int(
+        input("Enter sender account number: ")
+    )
 
     query = "SELECT * FROM accounts WHERE account_no = %s"
-    cursor.execute(query, (sender_account,))
+
+    cursor.execute(
+        query,
+        (sender_account,)
+    )
 
     sender = cursor.fetchone()
 
@@ -256,7 +305,11 @@ def transfer():
             return
 
         query = "SELECT * FROM accounts WHERE account_no = %s"
-        cursor.execute(query, (receiver_account,))
+
+        cursor.execute(
+            query,
+            (receiver_account,)
+        )
 
         receiver = cursor.fetchone()
 
@@ -306,14 +359,22 @@ def transfer():
                         WHERE account_no = %s
                         """
 
+                        # Update sender
                         cursor.execute(
                             query,
-                            (new_sender_balance, sender_account)
+                            (
+                                new_sender_balance,
+                                sender_account
+                            )
                         )
 
+                        # Update receiver
                         cursor.execute(
                             query,
-                            (new_receiver_balance, receiver_account)
+                            (
+                                new_receiver_balance,
+                                receiver_account
+                            )
                         )
 
                         query = """
@@ -378,17 +439,33 @@ def account_details():
 
     if choice == "1":
 
-        account_no = int(input("Enter account number: "))
+        account_no = int(
+            input("Enter account number: ")
+        )
 
-        query = "SELECT * FROM accounts WHERE account_no = %s"
-        cursor.execute(query, (account_no,))
+        query = """
+        SELECT * FROM accounts
+        WHERE account_no = %s
+        """
+
+        cursor.execute(
+            query,
+            (account_no,)
+        )
 
     elif choice == "2":
 
         mobile = input("Enter mobile number: ")
 
-        query = "SELECT * FROM accounts WHERE mobile = %s"
-        cursor.execute(query, (mobile,))
+        query = """
+        SELECT * FROM accounts
+        WHERE mobile = %s
+        """
+
+        cursor.execute(
+            query,
+            (mobile,)
+        )
 
     else:
         print("Invalid choice")
@@ -424,7 +501,9 @@ def transaction_history():
 
     if choice == "1":
 
-        account_no = int(input("Enter account number: "))
+        account_no = int(
+            input("Enter account number: ")
+        )
 
     elif choice == "2":
 
@@ -436,18 +515,24 @@ def transaction_history():
         WHERE mobile = %s
         """
 
-        cursor.execute(query, (mobile,))
+        cursor.execute(
+            query,
+            (mobile,)
+        )
 
         data = cursor.fetchone()
 
         if data:
+
             account_no = data[0]
 
         else:
+
             print("Account not found")
             return
 
     else:
+
         print("Invalid choice")
         return
 
@@ -457,7 +542,10 @@ def transaction_history():
     WHERE account_no = %s
     """
 
-    cursor.execute(query, (account_no,))
+    cursor.execute(
+        query,
+        (account_no,)
+    )
 
     data = cursor.fetchall()
 
@@ -473,6 +561,7 @@ def transaction_history():
             print("Type           :", row[2])
             print("Amount         :", row[3])
             print("Operation      :", row[4])
+
             print("----------------------------------------")
 
     else:
@@ -490,7 +579,9 @@ def change_pin():
     # Existing PIN
     if choice == "1":
 
-        account_no = int(input("Enter account number: "))
+        account_no = int(
+            input("Enter account number: ")
+        )
 
         query = """
         SELECT *
@@ -498,17 +589,33 @@ def change_pin():
         WHERE account_no = %s
         """
 
-        cursor.execute(query, (account_no,))
+        cursor.execute(
+            query,
+            (account_no,)
+        )
 
         data = cursor.fetchone()
 
         if data:
 
-            old_pin = int(input("Enter existing PIN: "))
+            old_pin = int(
+                input("Enter existing PIN: ")
+            )
 
             if old_pin == data[4]:
 
-                new_pin = int(input("Enter new PIN: "))
+                new_pin = int(
+                    input("Enter new PIN: ")
+                )
+
+                confirm_pin = int(
+                    input("Confirm new PIN: ")
+                )
+
+                if new_pin != confirm_pin:
+
+                    print("PINs do not match")
+                    return
 
                 query = """
                 UPDATE accounts
@@ -531,14 +638,15 @@ def change_pin():
         else:
             print("Account not found")
 
-
     # Forgot PIN
     elif choice == "2":
 
         print("\n1. Search using Account Number")
         print("2. Search using Mobile Number")
 
-        search_choice = input("Enter your choice: ")
+        search_choice = input(
+            "Enter your choice: "
+        )
 
         if search_choice == "1":
 
@@ -552,11 +660,16 @@ def change_pin():
             WHERE account_no = %s
             """
 
-            cursor.execute(query, (account_no,))
+            cursor.execute(
+                query,
+                (account_no,)
+            )
 
         elif search_choice == "2":
 
-            mobile = input("Enter mobile number: ")
+            mobile = input(
+                "Enter mobile number: "
+            )
 
             query = """
             SELECT *
@@ -564,9 +677,13 @@ def change_pin():
             WHERE mobile = %s
             """
 
-            cursor.execute(query, (mobile,))
+            cursor.execute(
+                query,
+                (mobile,)
+            )
 
         else:
+
             print("Invalid choice")
             return
 
@@ -574,7 +691,18 @@ def change_pin():
 
         if data:
 
-            new_pin = int(input("Enter new PIN: "))
+            new_pin = int(
+                input("Enter new PIN: ")
+            )
+
+            confirm_pin = int(
+                input("Confirm new PIN: ")
+            )
+
+            if new_pin != confirm_pin:
+
+                print("PINs do not match")
+                return
 
             query = """
             UPDATE accounts
@@ -615,24 +743,31 @@ while True:
     choice = input("Enter your choice: ")
 
     if choice == "1":
+
         create_account()
 
     elif choice == "2":
+
         deposit()
 
     elif choice == "3":
+
         withdraw()
 
     elif choice == "4":
+
         transfer()
 
     elif choice == "5":
+
         account_details()
 
     elif choice == "6":
+
         transaction_history()
 
     elif choice == "7":
+
         change_pin()
 
     elif choice == "8":
@@ -645,4 +780,5 @@ while True:
         break
 
     else:
+
         print("Invalid choice")
