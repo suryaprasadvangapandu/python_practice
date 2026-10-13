@@ -20,13 +20,14 @@
 # for i in range(10):
 #     print(f"6-digit otp : {random.randrange(100000,1000000)}")
 
-import random
-upper_case = [chr(i) for i in range(65,91)]
-# print(upper_case)
-lower_case = [chr(i) for i in range(97,123)]
-# print(lower_case)
-digits= [str(i) for i in range(10)]
-# print(digits)
-for i in range(10):
-    print(f"capcha is :{"".join([random.choice(lower_case+upper_case+digits) for i in range(7)])}")
+
+# import random
+# upper_case = [chr(i) for i in range(65,91)]
+# # print(upper_case)
+# lower_case = [chr(i) for i in range(97,123)]
+# # print(lower_case)
+# digits= [str(i) for i in range(10)]
+# # print(digits)
+# for i in range(10):
+#     print(f"capcha is :{"".join([random.choice(lower_case+upper_case+digits) for i in range(7)])}")
 
